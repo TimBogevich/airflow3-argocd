@@ -34,7 +34,7 @@ airflow:
       branch: develop
       rev: HEAD
       depth: 3
-      subPath: "dags"
+      subPath: "."
       credentialsSecret: git-credentials
       # knownHosts: |
       #    <host1>,<ip1> <key1>
