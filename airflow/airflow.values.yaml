@@ -30,7 +30,7 @@ airflow:
   dags:
     gitSync:
       enabled: true
-      repo: https://gitlab.goodsforecast.ru/integration/etl2/etl-product.git
+      repo: ssh://git@gitlab.goodsforecast.ru:2222/integration/etl2/etl-product.git
       branch: develop
       rev: HEAD
       depth: 4
