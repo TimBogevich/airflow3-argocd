@@ -52,6 +52,3 @@ airflow:
       # envFrom: |
       #   - secretRef:
       #       name: 'proxy-config'
-
-      containerName: git-sync
-      uid: 65533
