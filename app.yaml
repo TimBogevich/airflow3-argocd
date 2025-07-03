@@ -10,6 +10,9 @@ spec:
     repoURL: https://github.com/TimBogevich/airflow3-argocd.git
     targetRevision: HEAD
     path: airflow  # указывает на директорию с Chart.yaml
+    helm:
+      valueFiles:
+        - airflow.values.yaml   # Явно указываем файл значений
 
   destination:
     server: https://kubernetes.default.svc
