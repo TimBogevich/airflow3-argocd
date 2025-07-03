@@ -52,3 +52,10 @@ airflow:
       # envFrom: |
       #   - secretRef:
       #       name: 'proxy-config'
+
+  extraConfigMaps:
+    '{{ .Release.Name }}-airflow-variables':
+      labels:
+        my.custom.label/v2: my_custom_label_value_2
+      data: |
+        PYTHONPATH: "/opt/airflow/dags/repo/libs:/opt/airflow/dags/repo/libs_custom"
