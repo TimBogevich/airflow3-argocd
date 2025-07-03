@@ -1,9 +1,8 @@
 airflow:
-  fernetKey: 'dGVzdA=='
+  fernetKey: "dGVzdA=="
 
-  airflowVersion: '3.0.2'
+  airflowVersion: "3.0.2"
   defaultAirflowTag: "3.0.2-python3.11"
-
 
   useStandardNaming: true
 
@@ -23,9 +22,8 @@ airflow:
   migrateDatabaseJob:
     applyCustomEnv: false
     jobAnnotations:
-      'argocd.argoproj.io/hook': Sync
+      "argocd.argoproj.io/hook": Sync
     useHelmHooks: false
-
 
   dags:
     gitSync:
@@ -36,25 +34,9 @@ airflow:
       depth: 3
       subPath: "dags"
       credentialsSecret: git-credentials
-      # knownHosts: |
-      #    <host1>,<ip1> <key1>
-      #    <host2>,<ip2> <key2>
-
-      # interval between git sync attempts in seconds
-      # high values are more likely to cause DAGs to become out of sync between different components
-      # low values cause more traffic to the remote git repository
-      # Go-style duration string (e.g. "100ms" or "0.1s" = 100ms).
-      # For backwards compatibility, wait will be used if it is specified.
-      period: 5s
-      wait: ~
-      # add variables from secret into gitSync containers, such proxy-config
-      envFrom: ~
-      # envFrom: |
-      #   - secretRef:
-      #       name: 'proxy-config'
 
   extraConfigMaps:
-    '{{ .Release.Name }}-airflow-variables':
+    "{{ .Release.Name }}-airflow-variables":
       labels:
         my.custom.label/v2: my_custom_label_value_2
       data: |
