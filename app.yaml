@@ -12,7 +12,7 @@ spec:
     path: airflow  # указывает на директорию с Chart.yaml
     helm:
       valueFiles:
-        - airflow.values.yaml   # Явно указываем файл значений
+        - './airflow.values.yaml'   # Явно указываем файл значений
 
   destination:
     server: https://kubernetes.default.svc
