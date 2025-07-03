@@ -1,26 +1,26 @@
 airflow:
   fernetKey: 'dGVzdA=='
 
-airflowVersion: '3.0.1'
-defaultAirflowTag: "3.0.1"
+  airflowVersion: '3.0.1'
+  defaultAirflowTag: "3.0.1"
 
-createUserJob:
-  applyCustomEnv: false
-  useHelmHooks: false
+  createUserJob:
+    applyCustomEnv: false
+    useHelmHooks: false
 
-migrateDatabaseJob:
-  applyCustomEnv: false
-  jobAnnotations:
-    'argocd.argoproj.io/hook': Sync
-  useHelmHooks: false
+  migrateDatabaseJob:
+    applyCustomEnv: false
+    jobAnnotations:
+      'argocd.argoproj.io/hook': Sync
+    useHelmHooks: false
 
-useStandardNaming: true
+  useStandardNaming: true
 
-ingress:
-  enabled: true
-  web:
-    annotations:
-      kubernetes.io/ingress.class: nginx
-    host: airflow.local
-    tls:
-      enabled: false
+  ingress:
+    enabled: true
+    web:
+      annotations:
+        kubernetes.io/ingress.class: nginx
+      host: airflow.local
+      tls:
+        enabled: false
