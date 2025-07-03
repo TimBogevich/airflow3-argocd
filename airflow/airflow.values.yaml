@@ -35,30 +35,7 @@ airflow:
       rev: HEAD
       depth: 4
       subPath: "."
-    #
-      #
-      # If you are using an ssh clone url, you can load
-      # the ssh private key to a k8s secret like the one below
-      #   ---
-      #   apiVersion: v1
-      #   kind: Secret
-      #   metadata:
-      #     name: airflow-ssh-secret
-      #   data:
-      #     # key needs to be gitSshKey
-      #     gitSshKey: <base64_encoded_data>
-      # and specify the name of the secret below
       sshKeySecret: airflow-ssh-secret
-      #
-      # Or set sshKeySecret with your key
-      # sshKey: |-
-      #   -----BEGIN {OPENSSH PRIVATE KEY}-----
-      #   ...
-      #   -----END {OPENSSH PRIVATE KEY}-----
-      #
-      # If you are using an ssh private key, you can additionally
-      # specify the content of your known_hosts file, example:
-      #
       # knownHosts: |
       #    <host1>,<ip1> <key1>
       #    <host2>,<ip2> <key2>
