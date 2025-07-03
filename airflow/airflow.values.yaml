@@ -1,4 +1,5 @@
 fernetKey: 'dGVzdA=='
+airflowVersion: '3.0.1'
 defaultAirflowTag: "3.0.1"
 
 createUserJob:
