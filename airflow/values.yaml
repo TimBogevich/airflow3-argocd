@@ -1,3 +1,5 @@
+fernetKey: dGVzdA==
+
 createUserJob:
   applyCustomEnv: false
   useHelmHooks: false
