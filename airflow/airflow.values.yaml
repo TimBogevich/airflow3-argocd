@@ -30,12 +30,12 @@ airflow:
   dags:
     gitSync:
       enabled: true
-      repo: ssh://git@gitlab.goodsforecast.ru:2222/integration/etl2/etl-product.git
+      repo: https://gitlab.goodsforecast.ru/integration/etl2/etl-product.git
       branch: develop
       rev: HEAD
-      depth: 4
-      subPath: "."
-      sshKeySecret: airflow-ssh-secret
+      depth: 3
+      subPath: "dags"
+      credentialsSecret: git-credentials
       # knownHosts: |
       #    <host1>,<ip1> <key1>
       #    <host2>,<ip2> <key2>
