@@ -11,26 +11,9 @@ spec:
     targetRevision: HEAD
     path: airflow  # указывает на директорию с Chart.yaml
     helm:
-      values: |
-        fernetKey: 'dGVzdA=='
-        defaultAirflowTag: "3.0.1"
-        createUserJob:
-          applyCustomEnv: false
-          useHelmHooks: false
-        migrateDatabaseJob:
-          applyCustomEnv: false
-          jobAnnotations:
-            'argocd.argoproj.io/hook': Sync
-          useHelmHooks: false
-        useStandardNaming: true
-        ingress:
-          enabled: true
-          web:
-            annotations:
-              kubernetes.io/ingress.class: nginx
-            host: airflow.local
-            tls: 
-              enabled: false
+      valueFiles:
+        - './airflow.values.yaml'   # Явно указываем файл значений
+
   destination:
     server: https://kubernetes.default.svc
     namespace: airflow
