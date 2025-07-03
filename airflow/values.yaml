@@ -1,4 +1,5 @@
-fernetKey: dGVzdA==
+fernetKey: 'dGVzdA=='
+defaultAirflowTag: "3.0.1"
 
 createUserJob:
   applyCustomEnv: false
