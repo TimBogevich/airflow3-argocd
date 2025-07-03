@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: airflow
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://airflow.apache.org
+    chart: airflow
+    targetRevision: 1.17.0  # Use the latest available version
+    helm:
+      values: |
+        createUserJob:
+          applyCustomEnv: false
+          useHelmHooks: false
+        migrateDatabaseJob:
+          applyCustomEnv: false
+          jobAnnotations:
+            'argocd.argoproj.io/hook': Sync
+          useHelmHooks: false
+        useStandardNaming: true
+        ingress:
+          enabled: true
+          web:
+            annotations:
+              kubernetes.io/ingress.class: nginx
+            host: airflow.local
+            tls: 
+              enabled: false
+
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: airflow
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
