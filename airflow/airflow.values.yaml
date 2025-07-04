@@ -9,9 +9,6 @@ airflow:
   ingress:
     apiServer:
       enabled: true
-      host: airflow-api.local
-    web:
-      enabled: true
       annotations:
         kubernetes.io/ingress.class: nginx
       host: airflow.local
