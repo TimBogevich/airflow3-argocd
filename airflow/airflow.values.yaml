@@ -30,7 +30,7 @@ airflow:
     gitSync:
       enabled: true
       repo: https://gitlab.goodsforecast.ru/integration/etl2/etl-product.git
-      branch: develop
+      branch: airflow3_migration
       rev: HEAD
       depth: 3
       subPath: "dags"
