@@ -8,7 +8,7 @@ spec:
 
   source:
     repoURL: https://github.com/TimBogevich/airflow3-argocd.git
-    targetRevision: HEAD
+    targetRevision: airflow3_migration
     path: airflow  # указывает на директорию с Chart.yaml
     helm:
       valueFiles:
