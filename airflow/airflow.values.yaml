@@ -1,5 +1,5 @@
 airflow:
-  fernetKey: "Cb34Ecr2cW5cY3rm08PlpIEoh2EH5vRn"
+  fernetKey: "pT8ZDjwCvnWkfPEYBm12q2p9srNkM-nWC6Ss9aAcMEw="
   defaultAirflowRepository: "hollister/airflow3"
   airflowVersion: "3.0.2"
   defaultAirflowTag: "latest"
