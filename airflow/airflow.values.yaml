@@ -3,6 +3,7 @@ airflow:
   defaultAirflowRepository: "hollister/airflow3"
   airflowVersion: "3.0.2"
   defaultAirflowTag: "latest"
+  executor: "LocalExecutor"
 
   useStandardNaming: true
 
