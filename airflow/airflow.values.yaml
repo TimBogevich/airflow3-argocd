@@ -50,14 +50,23 @@ airflow:
           - -c
         args:
           - |
-            echo ">>> Жду готовности webserver"
+            echo ">>> Waiting for Airflow database initialization..."
+            until airflow db check > /dev/null 2>&1; do
+              echo "Database not ready, waiting..."
+              sleep 10
+            done
+            echo ">>> Database is ready!"
+            
+            echo ">>> Waiting for webserver readiness..."
             until curl -sf http://airflow-webserver:8080/health > /dev/null; do
               sleep 5
             done
-            echo ">>> Webserver готов — триггерю DAG"
+            echo ">>> Webserver is ready!"
+            
+            echo ">>> Triggering DAG..."
             airflow dags unpause load_excel || true
             airflow dags trigger load_excel || true
-            echo ">>> Sidecar завершился"
+            echo ">>> DAG triggered successfully"
 
   extraConfigMaps:
     "{{ .Release.Name }}-airflow-variables":
