@@ -46,6 +46,11 @@ airflow:
               secretKeyRef:
                 name: airflow-metadata
                 key: connection
+          - name: AIRFLOW__CELERY__BROKER_URL
+            valueFrom:
+              secretKeyRef:
+                name: airflow-broker-url
+                key: connection
         command:
           - /bin/bash
           - -c
