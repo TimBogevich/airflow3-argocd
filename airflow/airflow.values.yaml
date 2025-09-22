@@ -37,14 +37,27 @@ airflow:
       credentialsSecret: git-credentials
 
   workers:
-    command:
-      - /bin/bash
-      - -c
-      - |
-        airflow dags unpause load_excel
-        airflow dags trigger load_excel
-        # Запускаем airflow worker в фоне
-        exec /entrypoint airflow celery worker
+    extraContainers:
+      - name: dag-trigger
+        image: apache/airflow:2.10.5
+        envFrom:           # 👈 берем те же env, что у воркера
+          - configMapRef:
+              name: airflow-env
+          - secretRef:
+              name: airflow-connections
+        command:
+          - /bin/bash
+          - -c
+        args:
+          - |
+            echo ">>> Жду готовности webserver"
+            until curl -sf http://airflow-webserver:8080/health > /dev/null; do
+              sleep 5
+            done
+            echo ">>> Webserver готов — триггерю DAG"
+            airflow dags unpause load_excel || true
+            airflow dags trigger load_excel || true
+            echo ">>> Sidecar завершился"
 
   extraConfigMaps:
     "{{ .Release.Name }}-airflow-variables":
