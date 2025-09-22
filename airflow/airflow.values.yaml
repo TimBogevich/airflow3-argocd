@@ -40,9 +40,11 @@ airflow:
     extraContainers:
       - name: dag-trigger
         image: apache/airflow:2.10.5
-        envFrom:           # 👈 берем те же env, что у воркера
+        envFrom:
           - configMapRef:
-              name: '{{ .Release.Name }}-airflow-variables'
+              name: "{{ .Release.Name }}-airflow-config"
+          - secretRef:
+              name: "{{ .Release.Name }}-airflow-metadata"
         command:
           - /bin/bash
           - -c
