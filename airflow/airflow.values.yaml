@@ -42,9 +42,9 @@ airflow:
         image: apache/airflow:2.10.5
         envFrom:
           - configMapRef:
-              name: "{{ .Release.Name }}-airflow-config"
+              name: "airflow-config"
           - secretRef:
-              name: "{{ .Release.Name }}-airflow-metadata"
+              name: "airflow-metadata"
         command:
           - /bin/bash
           - -c
