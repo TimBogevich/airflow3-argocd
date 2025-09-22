@@ -37,16 +37,19 @@ airflow:
       credentialsSecret: git-credentials
 
   workers:
-    extraInitContainers:
-      - name: run-custom-command
-        image: apache/airflow:2.10.5
-        command:
-          - /bin/bash
-          - -c
-          - |
-            echo ">>> Выполняю команду до запуска воркера"
-            airflow dags unpause dbt_compilation
-            airflow dags trigger dbt_compilation
+    extraPodSpec:
+      containers:
+        - name: worker
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - /bin/bash
+                  - -c
+                  - |
+                    echo ">>> Worker успешно поднят, выполняю команду"
+                    airflow dags unpause dbt_compilation
+                    airflow dags trigger dbt_compilation
 
   extraConfigMaps:
     "{{ .Release.Name }}-airflow-variables":
