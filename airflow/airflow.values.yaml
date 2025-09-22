@@ -37,7 +37,7 @@ airflow:
       credentialsSecret: git-credentials
 
   workers:
-    initContainers:
+    extraContainers:
       - name: dag-trigger
         image: apache/airflow:2.10.5
         envFrom:
