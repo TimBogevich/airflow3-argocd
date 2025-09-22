@@ -45,7 +45,7 @@ airflow:
       touch /tmp/test.txt
 
       echo ">>> Запускаю airflow worker"
-      exec /entrypoint airflow celery worker
+      exec airflow celery worker
 
   extraConfigMaps:
     "{{ .Release.Name }}-airflow-variables":
