@@ -37,19 +37,27 @@ airflow:
       credentialsSecret: git-credentials
 
   workers:
-    extraPodSpec:
-      containers:
-        - name: worker
-          lifecycle:
-            postStart:
-              exec:
-                command:
-                  - /bin/bash
-                  - -c
-                  - |
-                    echo ">>> Worker успешно поднят, выполняю команду"
-                    airflow dags unpause dbt_compilation
-                    airflow dags trigger dbt_compilation
+    command:
+      - /bin/bash
+      - -c
+      - |
+        echo ">>> Запускаю airflow worker (и добавляю свою команду после старта)"
+        
+        # Запускаем airflow worker в фоне
+        /entrypoint airflow celery worker &
+
+        # Ждем пока airflow worker реально стартанет (healthcheck endpoint поднимется)
+        echo ">>> Жду пока worker поднимется..."
+        until curl -sf http://localhost:8793/health > /dev/null; do
+          sleep 2
+        done
+
+        echo ">>> Worker поднят! Выполняю команду"
+        airflow dags unpause load_excel
+        airflow dags trigger load_excel
+
+        echo ">>> Перевожу worker на foreground"
+        wait -n
 
   extraConfigMaps:
     "{{ .Release.Name }}-airflow-variables":
