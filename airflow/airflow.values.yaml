@@ -41,7 +41,7 @@ airflow:
       - name: dag-trigger
         image: apache/airflow:2.10.5-python3.11
         env:
-          - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
+          - name: AIRFLOW_CONN_AIRFLOW_DB
             valueFrom:
               secretKeyRef:
                 name: airflow-metadata
@@ -51,6 +51,11 @@ airflow:
               secretKeyRef:
                 name: airflow-broker-url
                 key: connection
+          - name: AIRFLOW__CORE__FERNET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: airflow-fernet-key
+                key: fernet-key
         command:
           - /bin/bash
           - -c
