@@ -44,7 +44,7 @@ airflow:
         airflow dags unpause load_excel
         airflow dags trigger load_excel
         # Запускаем airflow worker в фоне
-        /entrypoint airflow celery worker
+        exec /entrypoint airflow celery worker
 
   extraConfigMaps:
     "{{ .Release.Name }}-airflow-variables":
