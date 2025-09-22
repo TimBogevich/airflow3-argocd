@@ -46,6 +46,8 @@ airflow:
               secretKeyRef:
                 name: airflow-metadata
                 key: connection
+          - name: AIRFLOW__CORE__EXECUTOR
+            value: CeleryExecutor
           - name: AIRFLOW__CELERY__BROKER_URL
             valueFrom:
               secretKeyRef:
