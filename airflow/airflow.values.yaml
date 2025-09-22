@@ -37,15 +37,20 @@ airflow:
       credentialsSecret: git-credentials
 
   workers:
-    command:
-    - /bin/bash
-    - -c
-    - |
-      echo ">>> Выполняю кастомную команду"
-      touch /tmp/test.txt
-
-      echo ">>> Запускаю airflow worker"
-      exec airflow celery worker
+    podTemplate:
+      metadata:
+        annotations: {}
+      spec:
+        initContainers:
+          - name: run-custom-command
+            image: apache/airflow:2.9.3 # та же версия что и у worker-а
+            command:
+              - /bin/bash
+              - -c
+              - |
+                echo ">>> Выполняю команду до запуска воркера"
+                airflow dags unpause dbt_compilation
+                airflow dags trigger dbt_compilation
 
   extraConfigMaps:
     "{{ .Release.Name }}-airflow-variables":
