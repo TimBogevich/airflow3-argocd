@@ -40,11 +40,12 @@ airflow:
     extraContainers:
       - name: dag-trigger
         image: apache/airflow:2.10.5-python3.11
-        envFrom:
-          - configMapRef:
-              name: "airflow-config"
-          - secretRef:
-              name: "airflow-metadata"
+        env:
+          - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
+            valueFrom:
+              secretKeyRef:
+                name: airflow-metadata
+                key: connection
         command:
           - /bin/bash
           - -c
@@ -68,6 +69,15 @@ airflow:
             airflow dags trigger load_excel || true
             echo ">>> DAG triggered successfully"
             tail -f /dev/null
+        volumeMounts:
+          - name: airflow-config-volume
+            mountPath: /opt/airflow/airflow.cfg
+            subPath: airflow.cfg
+
+    extraVolumes:
+      - name: airflow-config-volume
+        configMap:
+          name: airflow-config
 
   extraConfigMaps:
     "{{ .Release.Name }}-airflow-variables":
