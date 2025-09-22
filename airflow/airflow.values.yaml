@@ -64,9 +64,6 @@ airflow:
             echo ">>> Webserver is ready!"
             
             echo ">>> Triggering DAG..."
-            airflow dags unpause load_excel || true
-            airflow dags trigger load_excel || true
-            echo ">>> DAG triggered successfully"
 
   extraConfigMaps:
     "{{ .Release.Name }}-airflow-variables":
