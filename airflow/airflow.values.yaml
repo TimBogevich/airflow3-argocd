@@ -39,6 +39,7 @@ airflow:
   workers:
     extraInitContainers:
       - name: run-custom-command
+        image: apache/airflow:2.10.5
         command:
           - /bin/bash
           - -c
