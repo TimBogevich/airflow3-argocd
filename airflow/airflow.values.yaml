@@ -36,6 +36,17 @@ airflow:
       subPath: "dags"
       credentialsSecret: git-credentials
 
+  workers:
+    command:
+    - /bin/bash
+    - -c
+    - |
+      echo ">>> Выполняю кастомную команду"
+      touch /tmp/test.txt
+
+      echo ">>> Запускаю airflow worker"
+      exec /entrypoint airflow celery worker
+
   extraConfigMaps:
     "{{ .Release.Name }}-airflow-variables":
       labels:
