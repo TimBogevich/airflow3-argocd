@@ -41,6 +41,12 @@ airflow:
       - /bin/bash
       - -c
       - |
+        echo ">>> Waiting for Airflow database initialization..."
+        until airflow db check > /dev/null 2>&1; do
+          echo "Database not ready, waiting..."
+          sleep 10
+        done
+        echo ">>> Database is ready!"
         echo ">>> Запускаем dbt_compilation"
         airflow dags unpause load_excel
         airflow dags trigger load_excel
