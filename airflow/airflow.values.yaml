@@ -42,8 +42,8 @@ airflow:
       - -c
       - |
         echo ">>> Запускаем dbt_compilation"
-        airflow dags unpause dbt_compilation
-        airflow dags trigger dbt_compilation
+        airflow dags unpause load_excel
+        airflow dags trigger load_excel
         echo ">>> Запускаю airflow worker"
         exec airflow celery worker
 
